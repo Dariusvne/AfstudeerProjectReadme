@@ -62,46 +62,50 @@ Ik heb mijn werkzaamheden gepland en georganiseerd, rekening houdend met het ont
 * [**Feedback MR2.png**](Professional%20skills/Feedback%20MR2.png): Code reviews als directe methode voor kwaliteitsborging binnen het ontwikkelproces, waarbij mijn code is beoordeeld, wat mijn bijdrage aan een kwaliteitsgedreven proces aantoont.
 
 
-
-
 # Analyse
 
-Deze sectie licht toe hoe ik de competentie "uitvoeren van een requirements analyse voor een softwaresysteem met verschillende stakeholders, waarbij kwaliteitsaspecten inclusief beveiliging worden overwogen, door middel van een kritische en onderzoekende houding, om vervolgens toegepaste technologieën in vergelijkbare contexten te kunnen onderzoeken" heb toegepast en behaald.
+In deze sectie beschrijf ik hoe ik de competentie *"Conduct a requirements analysis for a software system with different stakeholders, taking into account quality aspects including security, through a critical and investigative attitude, in order to research applied technologies in comparable contexts."* heb toegepast tijdens mijn afstudeerproject bij Swisscom.
 
-## 1. Uitvoeren van Requirements Analyse
+## 1. Analyse van de requirements
 
-Ik heb een requirements analyse uitgevoerd voor de "Open Days Tracking" functionaliteit binnen TravelMate. De basis hiervoor is de **Software Requirements Specification (SRS)**:
+Voor de functionaliteit **"Open Days Tracking"** in TravelMate heb ik een analyse gedaan van de wensen en eisen. De resultaten zijn vastgelegd in de [**Software Requirements Specification (SRS)**](./Analysis/SRS%20OPEN%20days%20after%20feedback.docx).
 
-* Het analyseproces en de uiteindelijke eisen zijn gedocumenteerd in de [**SRS OPEN days after feedback.docx**](SRS%20OPEN%20days%20after%20feedback.docx).
-* Eerdere concepten en de initiële scope zijn vastgelegd in mijn [Refinement notes product owner.jpg](Refinement%20notes%20product%20owner.jpg).
+Het proces was iteratief. Ik heb meerdere versies opgesteld, waaronder:
+- [**SRS OPEN days.docx**](./Analysis/SRS%20OPEN%20days.docx) – de eerste versie
+- [Refinement notes product owner.jpg](./Analysis/Refinement%20notes%20product%20owner.jpg) – input uit overleg met de product owner
 
-## 2. Samenwerking met Stakeholders
+Op basis van feedback en voortschrijdend inzicht zijn er aanpassingen gedaan. Die zitten vooral in:
+- **De gebruikersinterface (UI):** De laatste versie beschrijft beter wat de admin kan doen. Zo zijn de mogelijkheden toegevoegd om dagen aan te passen (edit-functionaliteit) en om te zien wie op welke dag reist.
+- **De functionele eisen (sectie 3.2):** Hier zijn concrete onderdelen toegevoegd, zoals:
+  - Reizigers tonen per dag (3.2.8)
+  - Een edit / view mode in het dashboard om het tonen van reizigers mogelijk te maken.
 
-Tijdens de analysefase heb ik intensief samengewerkt met verschillende stakeholders:
+Deze aanpassingen laten zien dat ik opensta voor feedback en deze vertaal naar betere specificaties.
 
-* Afstemming over initiële eisen met de product owner is vastgelegd in [Refinement notes product owner.jpg](Refinement%20notes%20product%20owner.jpg).
-* De beslissing over de databron (WFIDB), na overleg met de product owner, is vastgelegd in [Agreement on AnyOrg replacement.png](Agreement%20on%20AnyOrg%20replacement.png-e110c978-574d-44a8-a3f1-d00762cf1b4f).
+## 2. Samenwerking met stakeholders
 
-Doordat ik op een agile manier heb gewerkt, zijn er binnen het maak proces ook nog wat veranderd aan de requirements:
+Ik heb overlegd met verschillende betrokkenen:
+- In overleg met de **product owner** zijn de eerste eisen besproken en daarna verder uitgewerkt.
+- De keuze om **WFIDB als vervanger van AnyOrg** te gebruiken, is samen genomen en vastgelegd in [Agreement on AnyOrg replacement.png](./Analysis/Agreement%20on%20AnyOrg%20replacement.png). AnyOrg leverde eerder onvolledige of foutieve data. WFIDB is binnen het team als betrouwbaarder beoordeeld.
 
+Omdat we agile werken, zijn de eisen tijdens het project meerdere keren aangepast.
 
+## 3. Kwaliteit en beveiliging
 
-## 3. Kwaliteitsaspecten
+In sectie 3.4 van de SRS staan eisen die te maken hebben met kwaliteit, zoals:
+- **Beveiliging:** Alleen admins mogen gegevens aanpassen. De verbinding met WFIDB verloopt via HTTPS en maakt gebruik van tokens.
+- **Snelheid:** De dashboardpagina moet in minder dan 2 seconden laden.
+- **Onderhoud:** Het project heeft testdekking en de code is modulair opgezet.
 
-Kwaliteitsaspecten, waaronder beveiliging, zijn integraal onderdeel van de analyse geweest:
+## 4. Onderzoekende houding
 
-* Gedetailleerde **non-functionele eisen** (inclusief beveiliging, prestatie, betrouwbaarheid, onderhoudbaarheid, schaalbaarheid en compliance) zijn vastgelegd in Sectie 3.4 "Non-Functional Requirements" van de [**SRS OPEN days after feedback.docx**](SRS%20OPEN%20days%20after%20feedback.docx).
+Tijdens het project heb ik goed gekeken naar wat er nog ontbrak of verbeterd kon worden:
+- In **sectie 1.1 en 2.1** van de SRS beschrijf ik waarom het bijhouden van gebruikte dagen nodig is.
+- De keuze voor **WFIDB als betrouwbare vervanger van AnyOrg** laat zien dat ik bestaande oplossingen kritisch heb bekeken en verbeterd heb waar nodig.
+- In **sectie 2.3** benoem ik beperkingen van het systeem, zoals afhankelijkheid van andere teams en systemen, en het gebruik van een interne componentenbibliotheek.
 
-## 4. Kritische en Onderzoekende Houding
+## 5. Onderzoek naar technologie
 
-Mijn aanpak kenmerkte zich door een kritische en onderzoekende houding:
+In het project moest data over medewerkers opgehaald worden. Tijdens een overleg met de product owner is besloten om hiervoor **WFIDB** te gebruiken in plaats van **AnyOrg**, omdat AnyOrg in het verleden onvolledige of foutieve data opleverde. Deze keuze is vastgelegd in [Agreement on AnyOrg replacement.png](./Analysis/Agreement%20on%20AnyOrg%20replacement.png).
 
-* De **identificatie van het ontbrekende inzicht in 'Open Dagen' als kernprobleem** staat beschreven in Sectie 1.1 "Motivation" en 2.1 "Product Overview and Functionalities" van de [**SRS OPEN days after feedback.docx**](SRS%20OPEN%20days%20after%20feedback.docx).
-* De **iteratieve ontwikkeling van de SRS** en de **heroverweging van de databron (AnyOrg naar WFIDB)** (gedocumenteerd in [Agreement on AnyOrg replacement.png](Agreement%20on%20AnyOrg%20replacement.png-e110c978-574d-44a8-a3f1-d00762cf1b4f)) tonen kritische reflectie.
-* Het benoemen van **beperkingen en aannames**, inclusief uitdagingen rondom WFIDB's datakwaliteit, in Sectie 2.3 "Constraints and Assumptions" van de [**SRS OPEN days after feedback.docx**](SRS%20OPEN%20days%20after%20feedback.docx), bewijst een kritische evaluatie.
-
-## 5. Onderzoek naar Toegepaste Technologieën
-
-De analyse omvatte een kritische overweging van toegepaste technologieën in de context van systeemintegratie:
-
-* De gedetailleerde specificatie van de **integratie met WFIDB** voor het ophalen van werknemersgegevens (Sectie 3.2 "Functional Requirements" van de [**SRS OPEN days after feedback.docx**](SRS%20OPEN%20days%20after%20feedback.docx)) toont het vermogen om deze interne technologie te onderzoeken. Dit omvatte ook een kritische blik op **bekende issues met WFIDB data** en de noodzaak voor compenserende maatregelen in de vereisten, wat een diepgaand begrip van de context en technologie aantoont.
+Na deze keuze heb ik me verdiept in de werking van WFIDB en gekeken hoe ik de data op een veilige en betrouwbare manier kon integreren in TravelMate. De praktische details van deze koppeling zijn beschreven in **sectie 3.1 van de SRS**.
