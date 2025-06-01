@@ -50,7 +50,7 @@ Ik heb actief mijn rol in mijn afstudeerproject ingevuld door taken te herkennen
 
 * **Proactieve Knelpuntanalyse & Oplossing** (bewijs: [**Ticket asking WFIDB why the credentials are taking long.png**](Professional%20skills/Ticket%20asking%20WFIDB%20why%20the%20credentials%20are%20taking%20long.png)) Dit ticket illustreert mijn initiatief om buiten mijn directe ontwikkeltaken te treden en een afhankelijkheid (ontbrekende credentials) via een extern team op te lossen. Door deze blokkade weg te nemen, heb ik direct bijgedragen aan het oplossen van een probleem dat de voortgang van mijn taken binnen het afstudeerproject belemmerde.
 
-## 3. Manage & Control ## TODO: voeg running test in pipeline toe en scope change UI.
+## 3. Manage & Control
 
 **Kwalificatie uit Course Manual (Pagina 17):** "Managing and using a development street to support software development in teams, which means, among other others, continuous integration the possibilities. Applying methods and techniques to manage a software development process and to guarantee its quality (Software#2)."
 
