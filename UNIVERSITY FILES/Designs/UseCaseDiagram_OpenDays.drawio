@@ -1,0 +1,74 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.2 Chrome/134.0.6998.178 Electron/35.1.2 Safari/537.36" version="26.2.2">
+  <diagram name="Page-1" id="CDhUr0wOoCTKgFAjkuzY">
+    <mxGraphModel dx="1723" dy="1016" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-1" value="Admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="370" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-4" value="Open days reallocation" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="80" width="330" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-5" value="View Open Days Dashboard" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="2PtWsar8bhXVfPE2Oa-I-4">
+          <mxGeometry x="94" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-8" value="Edit Open Days Dashboard" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="2PtWsar8bhXVfPE2Oa-I-4">
+          <mxGeometry x="94" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-10" value="Reallocate Used Days" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="2PtWsar8bhXVfPE2Oa-I-4">
+          <mxGeometry x="94" y="70" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-11" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="2PtWsar8bhXVfPE2Oa-I-4" source="2PtWsar8bhXVfPE2Oa-I-8" target="2PtWsar8bhXVfPE2Oa-I-5">
+          <mxGeometry x="0.5" y="40" width="160" relative="1" as="geometry">
+            <mxPoint x="210" y="310" as="sourcePoint" />
+            <mxPoint x="370" y="310" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-12" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="2PtWsar8bhXVfPE2Oa-I-4" source="2PtWsar8bhXVfPE2Oa-I-10" target="2PtWsar8bhXVfPE2Oa-I-8">
+          <mxGeometry x="0.5" y="40" width="160" relative="1" as="geometry">
+            <mxPoint x="210" y="150" as="sourcePoint" />
+            <mxPoint x="209.75" y="160" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-13" value="View travelers" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="2PtWsar8bhXVfPE2Oa-I-4">
+          <mxGeometry x="194" y="410" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-14" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;rounded=0;entryX=0.003;entryY=0.406;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryPerimeter=0;" edge="1" parent="2PtWsar8bhXVfPE2Oa-I-4" source="2PtWsar8bhXVfPE2Oa-I-5" target="2PtWsar8bhXVfPE2Oa-I-13">
+          <mxGeometry x="0.3685" y="26" width="160" relative="1" as="geometry">
+            <mxPoint x="230" y="410" as="sourcePoint" />
+            <mxPoint x="230" y="450" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-18" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="2PtWsar8bhXVfPE2Oa-I-4" source="2PtWsar8bhXVfPE2Oa-I-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="214" y="339.63" as="sourcePoint" />
+            <mxPoint x="370" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-16" value="TravelMate Backend" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+          <mxGeometry x="706" y="350" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-17" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="2PtWsar8bhXVfPE2Oa-I-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="270" y="400" as="sourcePoint" />
+            <mxPoint x="330" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-19" value="WFIDB" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+          <mxGeometry x="706" y="550" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="2PtWsar8bhXVfPE2Oa-I-21" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry x="-0.25" width="160" relative="1" as="geometry">
+            <mxPoint x="720" y="440" as="sourcePoint" />
+            <mxPoint x="720" y="540" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
