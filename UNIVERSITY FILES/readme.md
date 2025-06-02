@@ -1,4 +1,4 @@
-# Professional Skills TODO: meeting notes
+# Professional Skills
 
 Tijdens dit afstudeerproject heb ik mijn professionele vaardigheden toegepast en verder ontwikkeld, zoals verwacht vanuit de kwalificaties van het programma. Deze sectie beschrijft hoe ik heb voldaan aan de gestelde criteria voor "Professional Skills" en "Manage & Control". Per vereiste licht ik mijn aanpak toe en verwijs ik naar concrete bewijzen in mijn Graduate Folder.
 
@@ -106,8 +106,10 @@ Tijdens het project heb ik goed gekeken naar wat er nog ontbrak of verbeterd kon
 - De keuze voor **WFIDB als betrouwbare vervanger van AnyOrg** laat zien dat ik bestaande oplossingen kritisch heb bekeken en verbeterd heb waar nodig.
 - In **sectie 2.3** benoem ik beperkingen van het systeem, zoals afhankelijkheid van andere teams en systemen, en het gebruik van een interne componentenbibliotheek.
 
-## 5. Onderzoek naar technologie
+<!-- ## 5. Onderzoek naar technologie
 
 In het project moest data over medewerkers opgehaald worden. Tijdens een overleg met de product owner is besloten om hiervoor **WFIDB** te gebruiken in plaats van **AnyOrg**, omdat AnyOrg in het verleden onvolledige of foutieve data opleverde. Deze keuze is vastgelegd in [Agreement on AnyOrg replacement.png](./Analysis/Agreement%20on%20AnyOrg%20replacement.png).
 
-Na deze keuze heb ik me verdiept in de werking van WFIDB en gekeken hoe ik de data op een veilige en betrouwbare manier kon integreren in TravelMate. De praktische details van deze koppeling zijn beschreven in **sectie 3.1 van de SRS**.
+Na deze keuze heb ik me verdiept in de werking van WFIDB en gekeken hoe ik de data op een veilige en betrouwbare manier kon integreren in TravelMate. De praktische details van deze koppeling zijn beschreven in **sectie 3.1 van de SRS**. -->
+
+
