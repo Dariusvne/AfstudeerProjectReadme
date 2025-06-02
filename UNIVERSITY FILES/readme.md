@@ -11,7 +11,7 @@ Ik heb mijn communicatie zorgvuldig afgestemd op de boodschap, de gewenste uitko
 * [**Refinement notes product owner.png**](Analysis/Refinement%20notes%20product%20owner.png): Vastlegging van afspraken na mondelinge gesprekken met de product owner, ter onderstreping van effectieve afstemming.
 * [**Discussion about stakeholder contact.png**](Professional%20skills/Discussion%20about%20stakeholder%20contact.png): Notities die mijn actieve deelname en begrip tijdens mondelinge stakeholdergesprekken aantonen.
 * [**Product Owner stakeholder discussion.png**](Professional%20skills/Marua%20stakeholder%20discussion.png): Aantekeningen van overleg met stakeholder Marua, wat mijn mondelinge afstemmingsvaardigheden bevestigt.
-* [**Meeting Elina stakeholder.png**](Professional%20skills/Meeting%20elina%20stakeholder.png): Bewijs van geplande meeting met een stakeholder om mijn plannen te bespreken.
+* [**Meeting Elina stakeholder.png**](Professional%20skills/Meeting%20elina%20stakeholder.png), [**Meeting Notes Elina**](Professional%20skills/Meeting%20notes%20Elina%20stakeholder.png): Bewijs van geplande meeting met een stakeholder om mijn plannen te bespreken en de meeting notes die hieruit voort gekomen zijn.
 * [**Anouk stakeholder contact.png**](Professional%20skills/Anouk%20stakeholder%20contact.png): Bewijs van contact en communicatie met stakeholder Anouk voor projectinput.
 * [**Explain solution.png**](Professional%20skills/Explain%20solution.png): Illustreert het toelichten of presenteren van een technische oplossing aan betrokkenen.
 * [**Screenshot chat product owner**](Analysis/Agreement%20on%20AnyOrg%20replacement.png): Schriftelijke afstemming via chat over een cruciale projectbeslissing met de product owner.
@@ -50,7 +50,7 @@ Ik heb actief mijn rol in mijn afstudeerproject ingevuld door taken te herkennen
 
 * **Proactieve Knelpuntanalyse & Oplossing** (bewijs: [**Ticket asking WFIDB why the credentials are taking long.png**](Professional%20skills/Ticket%20asking%20WFIDB%20why%20the%20credentials%20are%20taking%20long.png)) Dit ticket illustreert mijn initiatief om buiten mijn directe ontwikkeltaken te treden en een afhankelijkheid (ontbrekende credentials) via een extern team op te lossen. Door deze blokkade weg te nemen, heb ik direct bijgedragen aan het oplossen van een probleem dat de voortgang van mijn taken binnen het afstudeerproject belemmerde.
 
-## 3. Manage & Control ## TODO: voeg running test in pipeline toe en scope change UI.
+## 3. Manage & Control
 
 **Kwalificatie uit Course Manual (Pagina 17):** "Managing and using a development street to support software development in teams, which means, among other others, continuous integration the possibilities. Applying methods and techniques to manage a software development process and to guarantee its quality (Software#2)."
 
@@ -59,7 +59,9 @@ Ik heb mijn werkzaamheden gepland en georganiseerd, rekening houdend met het ont
 * [**de stories in mijn epic.png**](Professional%20skills/de%20stories%20in%20mijn%20epic.png), [**mijn epic.png**](Professional%20skills/mijn%20epic.png): Tonen de planning en opdeling van taken binnen een Agile raamwerk, wat duidt op gestructureerd tijdmanagement en projectorganisatie.
 * [**Ticket asking WFIDB why the credentials are taking long.png**](Professional%20skills/Ticket%20asking%20WFIDB%20why%20the%20credentials%20are%20taking%20long.png): Illustreert proactief management van onvoorziene afhankelijkheden die de planning konden beïnvloeden, door tijdig actie te ondernemen.
 * [**Deploy my branch on a different pipeline**](Professional%20skills/Deploy%20my%20branch%20on%20a%20different%20pipeline.png), [**See my branch running in a seperate pipeline**](Professional%20skills/See%20my%20branch%20running%20in%20a%20seperate%20pipeline.png): bewijs voor het inzetten van een development street en bijdrage aan geautomatiseerde deployments/Continuous Integration (CI).
+* [**Run tests in pipeline**](Professional%20skills/Running%20tests%20in%20pipeline.png): Ik run elke commit die ik naar de remote branch maak de testen, ook doe ik dit bij het aanmaken van een Merge Request.
 * [**Feedback MR2.png**](Professional%20skills/Feedback%20MR2.png): Code reviews als directe methode voor kwaliteitsborging binnen het ontwikkelproces, waarbij mijn code is beoordeeld, wat mijn bijdrage aan een kwaliteitsgedreven proces aantoont.
+* [**Design before stakeholder discussion**](./Analysis/Initial%20design.png), [**Design after stakeholder discussion**](./Analysis/Design%20after%20discussing%20with%20UX.png): Dit is het design voor en na de discussie met de stakeholders. Dit laat zien dat ik niet een vast plan had, maar op een agile manier naar de oplossing ben blijven kijken. Hierbij heb ik in een later stadium nog aanpassingen gedaan aan de requirements en design.
 
 
 # Analyse
