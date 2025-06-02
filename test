@@ -1,0 +1,32 @@
+7. Implementation Advice
+Although the recommended solution minimizes architectural disruption by extending the existing TravelMate backend, several implementation concerns must be addressed early to ensure maintainability, testability, and compliance with Swisscom’s internal policies.
+
+7.1 Refactor and Centralize User Enrichment Logic
+Due to internal privacy policies, TravelMate is not allowed to persist data from users who are not actively using the system. As a result, multiple parts of the backend rely on enrichment logic to dynamically retrieve employee data from external microservices such as AnyOrg or WFIDB.
+Currently, these enrichment methods are scattered across various services, making them hard to reuse and increasing coupling. As Open Days Tracking will depend on this same logic, it is strongly advised to refactor these enrichers into a centralized, cohesive module. This will improve long-term maintainability and promote reuse across different features, while aligning with software design principles such as high cohesion and low coupling.
+
+7.2 Align Authorization Strategy via Polymorphic Access Layer
+WFIDB introduces a different authorization mechanism compared to other microservices, which currently rely on JWT-based access. While both approaches aim to authenticate API requests, their token formats and validation flows differ.
+To avoid duplicating logic and breaking separation of concerns, implement a polymorphic access layer that abstracts the authorization mechanism. This allows the shared logic to be reused where applicable, while letting specific implementations diverge where necessary. This improves clarity and reduces future rework as additional microservices are onboarded.
+
+7.3 Improve Test Coverage Before Integrating New Features
+The TravelMate backend has low unit-test coverage, and the Open Days Tracking feature is highly dependent on existing logic that is currently untested. This introduces high risk: changes elsewhere in the system may unintentionally affect the feature’s behavior.
+Before implementing new functionality, automated tests should be added for existing modules that will be reused or modified. This includes:
+•	Enrichment logic
+•	Tribe and booking-related services
+•	Date and quota allocation components
+Without proper test scaffolding, regressions will be difficult to detect and diagnose. Proactively adding tests reduces integration risk and improves confidence in future releases.
+
+7.4 Implement Feature Flag Support via Internal Microservices
+To ensure controlled rollout and safe integration of the Open Days Tracking feature, it is essential to support feature toggling. At this time, the TravelMate backend does not yet support integration with Swisscom’s internal microservices for managing feature flags.
+To enable progressive delivery and isolate unfinished or restricted functionality, we advise implementing a lightweight integration with the internal feature flag service. This will allow the team to:
+•	Enable or disable the feature per environment (e.g., staging vs. production)
+•	Gradually roll out the feature to specific user groups or teams
+•	Prevent incomplete functionality from being exposed to users prematurely
+The implementation should abstract the feature flag check behind a simple utility interface, allowing feature logic to be toggled without scattering conditional checks throughout the codebase. This also improves testability and ensures that the presence or absence of the feature flag logic does not tightly couple core business logic to infrastructure-specific services.
+Without this mechanism, there is no safe way to merge or deploy the feature incrementally — which increases deployment risk and hinders agile delivery.
+
+7.5 Refactor DatesDashboardComponent Before Extension
+The dates-dashboard.component.ts file currently contains over 1000 lines of code and combines multiple responsibilities in a single component. This complexity makes it difficult to maintain, extend, and test.
+Since the Open Days Tracking feature must be implemented within this component, it is necessary to refactor it into a more modular structure before introducing new logic. However, this refactoring also introduces risk: the component plays a critical role in the system, and changes at this scale can easily introduce regressions or unintended side effects.
+Despite these risks, postponing the refactoring would lead to even more complexity, reduce code quality, and increase long-term maintenance cost. To balance safety and sustainability, the refactoring should be approached carefully, with proper test coverage and review.
