@@ -104,7 +104,7 @@ In sectie 3.4 van de SRS staan eisen die te maken hebben met kwaliteit, zoals:
 Tijdens het project heb ik goed gekeken naar wat er nog ontbrak of verbeterd kon worden:
 - In **sectie 1.1 en 2.1** van de SRS beschrijf ik waarom het bijhouden van gebruikte dagen nodig is.
 - De keuze voor **WFIDB als betrouwbare vervanger van AnyOrg** laat zien dat ik bestaande oplossingen kritisch heb bekeken en verbeterd heb waar nodig.
-- In **sectie 2.3** benoem ik beperkingen van het systeem, zoals afhankelijkheid van andere teams en systemen, en het gebruik van een interne componentenbibliotheek.
+- In **sectie 2.3** benoem ik beperkingen van het systeem, zoals afhankelijkheid van andere teams en systemen, en het gebruik van een interne component library.
 
 <!-- ## 5. Onderzoek naar technologie
 
