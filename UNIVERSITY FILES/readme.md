@@ -113,3 +113,50 @@ In het project moest data over medewerkers opgehaald worden. Tijdens een overleg
 Na deze keuze heb ik me verdiept in de werking van WFIDB en gekeken hoe ik de data op een veilige en betrouwbare manier kon integreren in TravelMate. De praktische details van deze koppeling zijn beschreven in **sectie 3.1 van de SRS**. -->
 
 
+
+
+# Software #2 - Advisory Competence
+
+Tijdens mijn afstudeerproject heb ik op meerdere momenten technische keuzes onderzocht en adviezen opgesteld om het systeem toekomstbestendig, uitbreidbaar en betrouwbaar te maken. Deze adviezen hebben betrekking op zowel de selectie van technologieën als de inrichting van de architectuur.
+
+## 1. Advising on the Selection of Software Components
+
+In het [**Advisory Report**](./Advisory%20report%202.docx) heb ik geadviseerd over de keuze van backend-, frontend- en database-technologieën voor de implementatie van de Open Days Tracking feature.
+
+Ik heb hierbij een **matrix-gebaseerde evaluatie** gebruikt waarbij ik meerdere technologie-opties (zoals Spring Boot, Kotlin, Node.js; Angular, React, Vue; PostgreSQL, MongoDB) heb vergeleken op basis van  non-functionele requirements uit het SRS. De kwaliteitseigenschappen waarop vergeleken is zijn onder andere: performance, schaalbaarheid, onderhoudbaarheid en beveiliging.
+
+De gemaakte keuzes zijn onderbouwd met:
+- score-tabel per technologie per laag
+- analyse vanuit een greenfield en bestaande-systeem perspectief
+- input van teamleden en product owner
+
+**Bewijs:**
+- Zie hoofdstukken 4.1 t/m 4.3 van het [Advisory Report](./Advisory%20report%202.docx)
+- Zie het SRS-document met NFR's: `SRS OPEN days after feedback.docx`
+
+## 2. Advising on a Part of the Architecture
+
+Het adviesrapport bevat een evaluatie van vier verschillende architectuurstrategieën (monolithisch, modulair subsysteem, microservice, prototype). Iedere optie is geëvalueerd op de **non-functional requirements** zoals beschreven in de SRS.
+
+Ik heb uiteindelijk geadviseerd om een **modulair subsysteem binnen het bestaande TravelMate-platform** te bouwen. Dit advies houdt rekening met:
+- testbaarheid en risico's
+- hergebruik van authenticatie
+- technische haalbaarheid
+- onderhoudsimpact
+
+De keuze is expliciet gericht op het **beperkt uitbreiden van de bestaande architectuur** met minimale verstoring, waarbij toch toekomstige uitbreidbaarheid mogelijk blijft.
+
+**Bewijs:**
+- Zie hoofdstuk 3.1 t/m 3.5 van het [Advisory Report](./Advisory%20report%202.docx)
+- Zie overlegnotities met stakeholders (o.a. `Refinement notes product owner.png`)
+
+## 3. Advising on Prototyping for Requirement Validation
+
+Ik heb een van de vier opties (Option D in het adviesrapport) expliciet ingericht als **prototype-strategie**. Hierbij adviseer ik het gebruik van een lichtgewicht prototype met bijvoorbeeld FastAPI of NestJS om:
+- de haalbaarheid van UI/UX en integratie met WFIDB te testen
+- risico’s vroegtijdig zichtbaar te maken
+
+Deze optie is opgenomen als een fallback-scenario wanneer onzekerheden niet anders afgevangen kunnen worden. Hiermee toon ik aan dat ik **prototyping inzet als valideermethode**, passend bij Software #2.
+
+**Bewijs:**
+- Zie sectie 3.4 van het [Advisory Report](./Advisory%20report%202.docx)
