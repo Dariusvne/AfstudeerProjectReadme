@@ -63,6 +63,7 @@ Ik heb mijn werkzaamheden gepland en georganiseerd, rekening houdend met het ont
 * [**Feedback MR2.png**](Professional%20skills/Feedback%20MR2.png): Code reviews als directe methode voor kwaliteitsborging binnen het ontwikkelproces, waarbij mijn code is beoordeeld, wat mijn bijdrage aan een kwaliteitsgedreven proces aantoont.
 * [**Design before stakeholder discussion**](./Analysis/Initial%20design.png), [**Design after stakeholder discussion**](./Analysis/Design%20after%20discussing%20with%20UX.png): Dit is het design voor en na de discussie met de stakeholders. Dit laat zien dat ik niet een vast plan had, maar op een agile manier naar de oplossing ben blijven kijken. Hierbij heb ik in een later stadium nog aanpassingen gedaan aan de requirements en design.
 
+<div style="page-break-after: always;"></div>
 
 # 2. Analyse
 
@@ -104,6 +105,7 @@ Tijdens het project heb ik goed gekeken naar wat er nog ontbrak of verbeterd kon
 - De keuze voor **WFIDB als betrouwbare vervanger van AnyOrg** laat zien dat ik bestaande oplossingen kritisch heb bekeken en verbeterd heb waar nodig.
 - In **sectie 2.3** benoem ik beperkingen van het systeem, zoals afhankelijkheid van andere teams en systemen, en het gebruik van een interne component library.
 
+<div style="page-break-after: always;"></div>
 
 # 3. Advise
 
@@ -149,12 +151,13 @@ Deze strategie is opgenomen als fallback-optie en sluit aan bij iteratieve ontwi
 
 ## 3.4 Technical Implementation Advice
 
-In **hoofdstuk 6** van het adviesrapport geef ik ook advies op implementatieniveau. Dit betreft concrete aanbevelingen voor het verbeteren van de onderhoudbaarheid en betrouwbaarheid van de bestaande codebasis:
+In **hoofdstuk 6** van het adviesrapport geef ik ook advies op implementatieniveau. Dit betreft concrete aanbevelingen voor het verbeteren van de onderhoudbaarheid en betrouwbaarheid van de bestaande codebasis. Deze refactors zijn nodig om mijn project een succes te maken. Zonder dit boorduurt mijn project voort op slecht maintainable code. Dit heb ik voorgesteld:
 
-- **Refactoren van de `DatesDashboardComponent`:** Deze component bevat ruim 1000 regels code en is daarmee lastig te testen en onderhouden. Ik adviseer om deze op te splitsen in subcomponenten.
+- **Vervang AnyOrg met een andere microervice:** AnyOrg wordt gebruikt om user data op te halen, dit is niet de bedoeling van AnyOrg. In mijn project wil ik dit vervangen met een microservice die echt bedoelt is hiervoor.
+- **Refactoren van de `DatesDashboardComponent`:** Dit component bevat ruim 1000 regels code en is daarmee lastig te testen en onderhouden. Ik adviseer om deze op te splitsen in subcomponenten.
 - **Gebruik van feature flags:** Omdat de functionaliteit nog niet meteen voor alle gebruikers beschikbaar hoeft te zijn, adviseer ik om interne feature flags toe te passen zodat de feature veilig uitgerold kan worden.
 - **Centralisatie van enrichment-logica:** Momenteel is de logica voor het ophalen van gebruikersinformatie verspreid over meerdere plekken. Dit belemmert hergebruik en maakt onderhoud lastig. Ik adviseer om deze logica te centraliseren.
 - **Polymorfe afhandeling van authenticatie:** De integratie met WFIDB vereist een ander type token dan de bestaande JWT-oplossing. Omdat er overlap is in de logica, adviseer ik een polymorfe aanpak om duplicatie te vermijden.
 - **Toevoegen van testdekking:** De bestaande code waar mijn feature op voortbouwt bevat geen testdekking. Aangezien de functionaliteit afhankelijk is van meerdere kritieke onderdelen van het systeem, adviseer ik om deze eerst te voorzien van tests voordat er wijzigingen worden doorgevoerd.
 
-Deze adviezen zijn gebaseerd op knelpunten die ik in de praktijk heb vastgesteld en dragen bij aan een robuuste en toekomstbestendige implementatie.
+Deze adviezen zijn gebaseerd op knelpunten die ik in de praktijk heb vastgesteld en dragen bij aan een goede implementatie.
