@@ -161,3 +161,67 @@ In **hoofdstuk 6** van het adviesrapport geef ik ook advies op implementatienive
 - **Toevoegen van testdekking:** De bestaande code waar mijn feature op voortbouwt bevat geen testdekking. Aangezien de functionaliteit afhankelijk is van meerdere kritieke onderdelen van het systeem, adviseer ik om deze eerst te voorzien van tests voordat er wijzigingen worden doorgevoerd.
 
 Deze adviezen zijn gebaseerd op knelpunten die ik in de praktijk heb vastgesteld en dragen bij aan een goede implementatie.
+
+
+## 4. Design
+
+> **Eindkwalificatie (Course Manual, p.19):**  
+> “Het ontwerpen van een software-architectuur voor een softwaresysteem, opgebouwd uit bestaande en nieuwe systemen, waarbij rekening wordt gehouden met meerdere stakeholders en kwaliteitseigenschappen, waaronder beveiliging en schaalbaarheid. Het opstellen van een teststrategie voor systeemtesten.”
+
+### 4.1 Architectuurontwerp: modulair, schaalbaar en veilig
+
+In [`Backend design.docx`](./Designs/Backend%20design.docx) presenteer ik het ontwerp van het *Open Days Tracking*-subsysteem. Het systeem is opgebouwd uit gescheiden onderdelen: controller, orchestratielaag en services. Bestaande onderdelen zoals `UserService` en `TravelRequestService` worden hergebruikt. Via feature flags wordt het systeem per omgeving of gebruiker beschikbaar gesteld.
+
+Deze structuur ondersteunt onderhoud, uitbreiding en hergebruik. Door verantwoordelijkheden te scheiden en alleen noodzakelijke afhankelijkheden op te nemen, blijft de oplossing beheersbaar.
+
+#### Visueel overzicht van de backend-architectuur
+
+[Backend design](./Designs/Backend%20design.jpg)
+
+#### Datamodelontwerp binnen de architectuur
+
+In hetzelfde ontwerp licht ik toe waarom ik drie DTO’s introduceer: `TravelRequestCompactedDto`, `TravelRequestCompactedUserDto` en `TravelDetailsCompactedDto`. Deze objecten bevatten alleen de gegevens die nodig zijn voor het frontend. Interne modellen worden niet direct doorgegeven.
+
+Deze keuze laat zien dat ik let op data-afscherming, performance en scheiding tussen lagen. De gebruikte factory methods passen binnen een layered architecture en ondersteunen consistentie in conversie.
+
+
+
+### 4.2 Polymorfe authenticatiearchitectuur
+
+In [`Microservice Authorization Architecture.docx`](./Designs/Microservice%20Authorization%20Architecture.docx) beschrijf ik een abstractielaag voor authenticatie, gebaseerd op polymorfisme. De implementatie maakt onderscheid tussen OAuth2 en SecureM2M via twee strategieklassen, met een gedeeld interface (`AuthorizationService`) en gecentraliseerde caching.
+
+Deze opzet maakt het mogelijk om nieuwe vormen van authenticatie toe te voegen zonder aanpassing aan clientcode. Het ontwerp is gericht op uitbreidbaarheid, hergebruik en scheiding van verantwoordelijkheden.
+
+#### Class diagram van de authenticatiearchitectuur
+
+[Microservice Authorization class diagram](./Designs/Microservice%20Authorization%20class%20diagram.jpg)
+
+
+### 4.3 Gebruik van enrichment-pattern voor dataverrijking
+
+In [`User Data Enrichment docs.docx`](./Designs/User%20Data%20Enrichment%20docs.docx) beschrijf ik de toepassing van een Enricher<T> pattern. Verrijkingslogica wordt via interfaces en facades opgebouwd uit herbruikbare onderdelen. Een `CompositeEnricher<T>` voert meerdere verrijkingen achter elkaar uit.
+
+Deze structuur maakt verrijking herbruikbaar en beperkt duplicatie. Door gebruik te maken van interface-based design en composition kan logica beter beheerd en getest worden.
+
+#### Overzicht van de enrichmentarchitectuur
+
+[Enrichers design](./Designs/Enrichers%20design.png)
+
+
+### 4.4 UI-ontwerp en stakeholderinteractie
+
+De afbeelding [`Design after discussing with UX.png`](./Designs/Design%20after%20discussing%20with%20UX.png) laat zien welke aanpassingen aan het dashboard zijn doorgevoerd na overleg met de UX-designer. Hierbij zijn onder meer visuele groepering en bewoording aangepast.
+
+Deze aanpassing is gedaan op basis van terugkoppeling van stakeholders. Ik heb technische ontwerpkeuzes afgestemd op gebruik en interpretatie, wat laat zien dat ik in mijn ontwerp rekening houd met belanghebbenden en kwaliteitseigenschappen zoals bruikbaarheid.
+
+#### Aangepast ontwerp na overleg met UX
+
+[UX eerste ontwerp](./Designs/Initial%20design.png)
+[UX aangepast ontwerp](./Designs/Design%20after%20discussing%20with%20UX.png)
+
+
+### 4.5 Teststrategie afgestemd op het systeemontwerp
+
+In [`Testplan.docx`](./Designs/Testplan.docx) beschrijf ik hoe de teststrategie voortkomt uit de architectuur van het systeem. De componentstructuur maakt het mogelijk om delen van het systeem los van elkaar te testen. Externe afhankelijkheden zoals WFIDB zijn te simuleren. Foutafhandeling is meegenomen in het ontwerp, zodat er controle blijft over het gedrag wanneer een externe service niet beschikbaar is.
+
+Deze aanpak toont aan dat testbaarheid is meegenomen in de ontwerpfase. De systeemstructuur ondersteunt het opstellen van tests die aansluiten bij de architectuur en de gekozen kwaliteitsdoelen.
