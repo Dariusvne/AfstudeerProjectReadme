@@ -225,3 +225,4 @@ Deze aanpassing is gedaan op basis van terugkoppeling van stakeholders. Ik heb t
 In [`Testplan.docx`](./Designs/Testplan.docx) beschrijf ik hoe de teststrategie voortkomt uit de architectuur van het systeem. De componentstructuur maakt het mogelijk om delen van het systeem los van elkaar te testen. Externe afhankelijkheden zoals WFIDB zijn te simuleren. Foutafhandeling is meegenomen in het ontwerp, zodat er controle blijft over het gedrag wanneer een externe service niet beschikbaar is.
 
 Deze aanpak toont aan dat testbaarheid is meegenomen in de ontwerpfase. De systeemstructuur ondersteunt het opstellen van tests die aansluiten bij de architectuur en de gekozen kwaliteitsdoelen.
+ 
