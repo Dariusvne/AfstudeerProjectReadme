@@ -18,7 +18,7 @@ Ik heb mijn communicatie zorgvuldig afgestemd op de boodschap, de gewenste uitko
 * [**asking for feedback Scrum Master.png**](Professional%20skills/Asking%20for%20feedback%20elma.png), [**Asking for feedback.png**](Professional%20skills/Asking%20for%20feedback%20elma%202.png): Proactief schriftelijk feedback vragen aan Elma ter verbetering van mijn werkzaamheden.
 * [**Elma sync.png**](Professional%20skills/Elma%20Sync.png), [**Elma Sync 2.png**](Professional%20skills/Elma%20Sync%202.png): Meetings voor feedback met de Scrum Master.
 * [**Feedback on wessel.png**](Professional%20skills/Feedback%20on%20wessel.png): Voorbeeld van ontvangen schriftelijke feedback die is verwerkt.
-* [**Mohamed communication regarding WFIDB.png**](Professional%20skills/Mohamed%20communication%20regarding%20WFIDB.png): Specifieke schriftelijke communicatie over de WFIDB-implementatie en benodigde informatie.
+* [**Mohamed communication regarding WFIDB.png**](Professional%20skills/Mohamed%20communication%20regarding%20WFIDB.png): Specifieke schriftelijke communicatie over de WFIDB-implementatie (Work Force Identity Database) en benodigde informatie.
 * [**Ticket asking WFIDB why the credentials are taking long.png**](Professional%20skills/Ticket%20asking%20WFIDB%20why%20the%20credentials%20are%20taking%20long.png): Proactieve schriftelijke communicatie (via een ticket) om een afhankelijkheid op te lossen.
 
 ## 1.2 Samenwerking
@@ -225,4 +225,115 @@ Deze aanpassing is gedaan op basis van terugkoppeling van stakeholders. Ik heb t
 In [`Testplan.docx`](./Designs/Testplan.docx) beschrijf ik hoe de teststrategie voortkomt uit de architectuur van het systeem. De componentstructuur maakt het mogelijk om delen van het systeem los van elkaar te testen. Externe afhankelijkheden zoals WFIDB zijn te simuleren. Foutafhandeling is meegenomen in het ontwerp, zodat er controle blijft over het gedrag wanneer een externe service niet beschikbaar is.
 
 Deze aanpak toont aan dat testbaarheid is meegenomen in de ontwerpfase. De systeemstructuur ondersteunt het opstellen van tests die aansluiten bij de architectuur en de gekozen kwaliteitsdoelen.
- 
+
+
+# 5. Realisatie
+
+In deze sectie toon ik hoe ik het systeem daadwerkelijk heb gebouwd. De focus ligt op de technische uitvoering van de Open Days Tracking-feature binnen TravelMate. Ik bespreek belangrijke keuzes, laat codevoorbeelden zien van cruciale onderdelen en toon aan hoe ik voldoe aan de competentie *"Building and making available a scalable software system that connects to existing systems, possibly in the cloud, according to the designed architecture using existing frameworks. Applying test automation when performing tests."*
+
+## 5.1 Technologieën en projectstructuur
+
+Voor de implementatie heb ik gekozen voor de technologien en frameworks die al werden gebruikt binnen de applicatie:
+- **Backend:** Spring Boot met Java
+- **Frontend:** Angular
+- **Database:** mongoDb
+
+De backend is modulair opgezet, waarbij ik mijn onderdeel zoveel mogelijk los heb getrokken van de bestaande codebase, dit zodat mijn code zo min mogelijk in het vaarwater komt van de bestaande codebase. De modulariteit waar ik het over heb valt te beschrijven op verschillende manieren. Zo gebruik ik een service-controller-repository design waarbij ik de database logic, de business logica en de api logica van elkaar afzonder. Ik ga hierin nog een stapje verder door het af te zonderen van het huidige systeem, Ik herbuik dus niet de bestaande modellen, maar heb mijn eigen gedefinieerd. Als er dingen in de bestaande modellen veranderen hoeven we ons niet zorgen te maken over mijn feature, alleen op de plek waar ik de bestaande modellen converteer naar mijn modellen. Dit is ook handig voor het 
+
+## 5.2 Koppeling met bestaande systemen
+
+De feature maakt verbinding met WFIDB (Work Force Identity Database) om user data op te halen. Eerst deden we dit met een andere microservice, maar die was helemaal niet bedoeld om het te gebruiken voor gebruikers data. Voor het bouwen van mijn feature wilde ik dit veranderen. Ik heb een integratie gebouwd om onze backend aan deze microservice te connecten:
+
+- `WFIClient.java` communiceert via REST met het externe WFIDB systeem
+- `WFIService.java` definieert custom queries die mee gestuurd worden naar WFIDB, ook zorgt de service voor de authorisatie.
+- `OAuth2JwtService.java` handelt token-authorisatie af
+
+Ook heb ik een implementatie gemaakt voor de featureflag microservice integratie volgens dezelfde principes:
+
+- `FeatureFlagClient.java` communiceert via Rest met het externe FeatureFlag systeem 
+- `FeatureFlagService.java` Regelt de business logica (wat vrij weinig is voor deze integratie) en zorgt voor de authorisatie.
+- `OAuth2JwtService.java` handelt token-authorisatie af
+
+Ik liep tegen een probleem aan bij het integreren van de FeatureFlag microservice, wat buiten mijn handen lag. Hierdoor hebben we besloten om niet verder te gaan met de featureflag implementatie. Ik laat het toch zien, omdat ik de code heb geschreven en het ook goed is. Aangezien wij op een andere cloud omgeving zitten (nog), kon ik geen connectie maken met hun service. 
+
+voor deze implementaties was er een grote refactor nodig, de WFI microservices gebruikte een andere vorm van authorisatie dan de Featureflag service. Er waren  veel overeenkomsten tussen de manieren van authoriseren, maar er waren ook veel dingen anders. Hiervoor heb ik een uitbreidbare manier bedacht om de authorisatie af te handelen:
+
+- `AbstractAuthorizationService.java` bevat alle gedeelde logica tussen de 2 authorization manieren.
+- `OAuth2JwtService.java` en `SecureM2MJwtService.java` implementeren deze abstracte class en implementeren de logica wat niet overeen komt. 
+- deze services communiceren met de externe authorization services van Swisscom via de `OAuth2JwtClient.java` en `SecureM2MJwtClient.java`
+
+Buiten het koppelen met externe systemen heb ik ook veel met de applicatie waarin ik mijn feature bouw te maken gehad. Zo heb ik bijvoorbeeld bij de integratie van de nieuwe WFIDB service ook de code die er al was moeten refactoren, want anders gebruikten we in de eene kant van het systeem deze service en de andere kant van het systeem de andere, [hier](./Realisation/Backend/refactor%20na%20integratie%20van%20WFIDB.png) is een voorbeeld te zien van zo'n refactor die ik in het bestaande systeem heb moeten uitvoeren.
+
+**Bewijs:**
+- Zie /Realisation/Backend/MicroServices/workforceidentity
+- Zie /Realisation/Backend/MicroServices/featureflag
+- Zie /Realisation/Backend/authorization
+
+## 5.3 Belangrijke en complexe code
+
+Binnen Swisscom mogen we gebruikersdata alleen opslaan als iemand actief is in het systeem; passieve gebruikers worden slechts als *scaffolded users* opgeslagen met een intern ID en employee number. Toch hebben we vaak aanvullende data nodig (zoals naam, e-mail of afdeling) om logica correct uit te voeren. Hiervoor gebruiken we *enrichment*: het aanvullen van onvolledige modellen met data uit externe bronnen (zoals WFIDB) op het moment dat deze informatie nodig is. Deze enrichment-logica was echter verspreid door de codebase, wat leidde tot duplicatie, moeilijk onderhoud en slechte testbaarheid.
+
+### Oplossing: centrale, uitbreidbare Enricher-architectuur
+
+- Ik heb een generiek `Enricher<T>` interface geïntroduceerd:
+
+  ```java
+  interface Enricher<T> {
+      T enrich(T data);
+  }
+  ```
+
+- Elke concrete Enricher implementeert deze interface:
+  - Voorbeeld: `ScaffoldedUserEnricher` haalt gebruikersgegevens op via employee number.
+  - Andere Enrichers vullen bijvoorbeeld e-mail of naam aan bij memberships.
+
+- Om meerdere Enrichers op één model toe te passen, heb ik de **`CompositeEnricher<T>`** geïntroduceerd:
+  - Bevat een lijst van Enrichers.
+  - Past ze sequentieel toe op het inputmodel.
+  - Zorgt voor een uniforme, configureerbare enrichment-keten.
+
+- De `EnricherConfig` stelt samengestelde Enrichers samen en injecteert ze in specifieke facades per domein (bijv. gebruikers, memberships, people groups).
+
+Voorbeeld van enrichment refactor: [Enrichment voor en na refactor](./Realisation/Backend/enrichers/Enrichment%20refactor%20example.png)
+
+### Resultaat
+
+- **Centrale aansturing** van enrichment via facades.  
+- **Herbruikbare** en **testbare** Enrichers per datamodel.  
+- **Eenvoudig uitbreidbaar**: nieuwe Enrichers toevoegen zonder bestaande code te wijzigen.  
+- **Betere onderhoudbaarheid**: enrichment-logica is niet langer verspreid door de codebase.
+
+## 5.4 Testautomatisering
+
+Ik heb verschillende niveaus van tests geïmplementeerd:
+- **Unit tests:** met JUnit en Mockito voor services en enrichment-logic
+- **Integration tests:** voor de communicatie met externe systemen
+- **E2E tests:** met Cypress voor de frontend
+
+**Voorbeelden:**
+- `OpenDaysServiceTest.java` test de toewijzingslogica
+- Cypress-scenario test de gebruikersflow voor het aanmaken van een reis
+
+**Bewijs:**
+- Zie [New testplan.docx](./Advise/New%20testplan.docx)
+
+## 5.5 Schaalbaarheid en uitbreidbaarheid
+
+De feature is schaalbaar en toekomstbestendig ontworpen:
+- Asynchrone API-calls voor UI-responsiviteit
+- Feature flags om functionaliteit gecontroleerd uit te rollen
+- Frontend-componenten (zoals `DatesDashboardComponent`) worden opgesplitst om onderhoud te vergemakkelijken
+
+**Designkeuzes die dit ondersteunen:**
+- Gebruik van modulaire services en gedeelde interfaces
+- Documentatie en class diagrams voor authenticatie en enrichment-logica
+
+## 5.6 Reflectie
+
+Tijdens het bouwen liep ik tegen een aantal uitdagingen aan:
+- De originele `DatesDashboardComponent` was meer dan 1000 regels en niet onderhoudbaar. Refactoring was noodzakelijk.
+- De WFIDB-integratie vroeg om nieuwe authenticatielogica die niet eerder gebruikt werd.
+- Het ontbreken van testdekking op bestaande code zorgde voor risico’s bij uitbreidingen.
+
+Door grondige tests toe te voegen, modulaire logica te schrijven en documentatie te maken, is het systeem nu onderhoudbaar en veilig voor productie.
+
