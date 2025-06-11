@@ -238,8 +238,6 @@ Voor de implementatie heb ik gekozen voor de technologien en frameworks die al w
 - **Frontend:** Angular
 - **Database:** mongoDb
 
-De backend is modulair opgezet, waarbij ik mijn onderdeel zoveel mogelijk los heb getrokken van de bestaande codebase, dit zodat mijn code zo min mogelijk in het vaarwater komt van de bestaande codebase. De modulariteit waar ik het over heb valt te beschrijven op verschillende manieren. Zo gebruik ik een service-controller-repository design waarbij ik de database logic, de business logica en de api logica van elkaar afzonder. Ik ga hierin nog een stapje verder door het af te zonderen van het huidige systeem, Ik herbuik dus niet de bestaande modellen, maar heb mijn eigen gedefinieerd. Als er dingen in de bestaande modellen veranderen hoeven we ons niet zorgen te maken over mijn feature, alleen op de plek waar ik de bestaande modellen converteer naar mijn modellen. Dit is ook handig voor het 
-
 ## 5.2 Koppeling met bestaande systemen
 
 De feature maakt verbinding met WFIDB (Work Force Identity Database) om user data op te halen. Eerst deden we dit met een andere microservice, maar die was helemaal niet bedoeld om het te gebruiken voor gebruikers data. Voor het bouwen van mijn feature wilde ik dit veranderen. Ik heb een integratie gebouwd om onze backend aan deze microservice te connecten:
@@ -265,75 +263,91 @@ voor deze implementaties was er een grote refactor nodig, de WFI microservices g
 Buiten het koppelen met externe systemen heb ik ook veel met de applicatie waarin ik mijn feature bouw te maken gehad. Zo heb ik bijvoorbeeld bij de integratie van de nieuwe WFIDB service ook de code die er al was moeten refactoren, want anders gebruikten we in de eene kant van het systeem deze service en de andere kant van het systeem de andere, [hier](./Realisation/Backend/refactor%20na%20integratie%20van%20WFIDB.png) is een voorbeeld te zien van zo'n refactor die ik in het bestaande systeem heb moeten uitvoeren.
 
 **Bewijs:**
-- Zie /Realisation/Backend/MicroServices/workforceidentity
-- Zie /Realisation/Backend/MicroServices/featureflag
-- Zie /Realisation/Backend/authorization
+- Zie ./Realisation/Backend/MicroServices/workforceidentity
+- Zie ./Realisation/Backend/MicroServices/featureflag
+- Zie ./Realisation/Backend/authorization
 
 ## 5.3 Belangrijke en complexe code
 
-Binnen Swisscom mogen we gebruikersdata alleen opslaan als iemand actief is in het systeem; passieve gebruikers worden slechts als *scaffolded users* opgeslagen met een intern ID en employee number. Toch hebben we vaak aanvullende data nodig (zoals naam, e-mail of afdeling) om logica correct uit te voeren. Hiervoor gebruiken we *enrichment*: het aanvullen van onvolledige modellen met data uit externe bronnen (zoals WFIDB) op het moment dat deze informatie nodig is. Deze enrichment-logica was echter verspreid door de codebase, wat leidde tot duplicatie, moeilijk onderhoud en slechte testbaarheid.
+In dit hoofdstuk verwijs ik naar enkele belangrijke en complexe backend-oplossingen die ik heb ontworpen en geïmplementeerd. Deze dragen bij aan een beter gestructureerde, onderhoudbare en uitbreidbare codebase.
 
-### Oplossing: centrale, uitbreidbare Enricher-architectuur
+### 5.3.1 Centrale Enricher-architectuur
 
-- Ik heb een generiek `Enricher<T>` interface geïntroduceerd:
+Binnen de backend heb ik een generieke Enricher-architectuur opgezet om gebruikersdata dynamisch aan te vullen op basis van externe bronnen, zoals de WFIDB. Deze oplossing zorgt voor centrale aansturing en herbruikbaarheid van enrichment-logica.
 
-  ```java
-  interface Enricher<T> {
-      T enrich(T data);
-  }
-  ```
+**Bestanden:**
+- [`Enricher.java`](./Realisation/Backend/enrichers/Enricher.java)
+- [`ScaffoldedUserEnricher.java`](./Realisation/Backend/enrichers/ScaffoldedUserEnricher.java)
+- [`UserEnrichmentFacade.java`](./Realisation/Backend/enrichers/UserEnrichmentFacade.java)
+- [`EnricherConfig.java`](./Realisation/Backend/enrichers/EnricherConfig.java)
 
-- Elke concrete Enricher implementeert deze interface:
-  - Voorbeeld: `ScaffoldedUserEnricher` haalt gebruikersgegevens op via employee number.
-  - Andere Enrichers vullen bijvoorbeeld e-mail of naam aan bij memberships.
+**Visualisatie:**  
+[Enrichment voor en na refactor](./Realisation/Backend/enrichers/Enrichment%20refactor%20example.png)
 
-- Om meerdere Enrichers op één model toe te passen, heb ik de **`CompositeEnricher<T>`** geïntroduceerd:
-  - Bevat een lijst van Enrichers.
-  - Past ze sequentieel toe op het inputmodel.
-  - Zorgt voor een uniforme, configureerbare enrichment-keten.
+**Documentatie:**
+[Documentatie enrichment](./Designs/User%20Data%20Enrichment%20docs.docx)
 
-- De `EnricherConfig` stelt samengestelde Enrichers samen en injecteert ze in specifieke facades per domein (bijv. gebruikers, memberships, people groups).
+### 5.3.2 Observer-pattern voor monitoring
 
-Voorbeeld van enrichment refactor: [Enrichment voor en na refactor](./Realisation/Backend/enrichers/Enrichment%20refactor%20example.png)
+Voor het registreren van Prometheus-metrieken heb ik een generieke observer-architectuur geïmplementeerd. Hiermee wordt monitoring losgekoppeld van de functionele logica.
 
-### Resultaat
+**Bestanden:**
+- [`Observer.java`](./Realisation/Backend/monitoring/Observer.java)
+- [`PrometheusObserver.java`](./Realisation/Backend/monitoring/PrometheusObserver.java)
+- [`ObserverUtils.java`](./Realisation/Backend/monitoring/ObserverUtils.java)
 
-- **Centrale aansturing** van enrichment via facades.  
-- **Herbruikbare** en **testbare** Enrichers per datamodel.  
-- **Eenvoudig uitbreidbaar**: nieuwe Enrichers toevoegen zonder bestaande code te wijzigen.  
-- **Betere onderhoudbaarheid**: enrichment-logica is niet langer verspreid door de codebase.
+**Documentatie:**
+[Documentatie monitoring observer](./Realisation/Backend/monitoring/Docs%20PrometheusObserver.docx)
 
-## 5.4 Testautomatisering
 
-Ik heb verschillende niveaus van tests geïmplementeerd:
-- **Unit tests:** met JUnit en Mockito voor services en enrichment-logic
-- **Integration tests:** voor de communicatie met externe systemen
-- **E2E tests:** met Cypress voor de frontend
+### 5.3.3 Opendays-feature
 
-**Voorbeelden:**
-- `OpenDaysServiceTest.java` test de toewijzingslogica
-- Cypress-scenario test de gebruikersflow voor het aanmaken van een reis
+Dit is de code die refereert naar de implementatie van de daadwerkelijke feature, 
 
-**Bewijs:**
-- Zie [New testplan.docx](./Advise/New%20testplan.docx)
+**Frontend:**
+- [`dates-dashboard.component.ts`](./Realisation/Frontend/dates-dashboard.component.ts)
+- [`traveler-list.component.ts`](./Realisation/Frontend/traveler-list.component.ts)
 
-## 5.5 Schaalbaarheid en uitbreidbaarheid
+**Backend:**
+- [`CustomContingentsController.java`](./Realisation/Backend/contigents/CustomContingentsController.java)
+- [`CustomContingentsService.java`](./Realisation/Backend/contigents/CustomContingentsService.java)
+- [`TravelRequestRepository.java`](./Realisation/Backend/contigents/TravelRequestRepository.java)
 
-De feature is schaalbaar en toekomstbestendig ontworpen:
-- Asynchrone API-calls voor UI-responsiviteit
-- Feature flags om functionaliteit gecontroleerd uit te rollen
-- Frontend-componenten (zoals `DatesDashboardComponent`) worden opgesplitst om onderhoud te vergemakkelijken
+- [`TravelRequestCompactedDto.java`](./Realisation/Backend/contigents/TravelRequestCompactedDto.java)
+- [`TravelDetailsCompactedDto.java`](./Realisation/Backend/contigents/TravelDetailsCompactedDto.java)
+- [`TravelDetailsCompactedUserDto.java`](./Realisation/Backend/contigents/TravelDetailsCompactedDto.java)
 
-**Designkeuzes die dit ondersteunen:**
-- Gebruik van modulaire services en gedeelde interfaces
-- Documentatie en class diagrams voor authenticatie en enrichment-logica
+**Visualisatie:**  
+[Design Backend Opendays feature](./Designs/Backend%20design.jpg)
+## 5.4 Teststrategie en bewijs
+
+Voor de "Open Days Tracking" feature in TravelMate heb ik een uitgebreide teststrategie opgesteld en uitgevoerd. Hierbij is gebruikgemaakt van geautomatiseerde testen op verschillende niveaus (unit, integratie, component en end-to-end), aangevuld met handmatige validatie voor kritieke scenario’s.
+
+### Testplan en dekking
+
+Het volledige testplan beschrijft de aanpak, gebruikte tools en alle geteste functionele en niet-functionele vereisten. Er zijn een aantal dingen die ik liever wel had gedaan, maar door een kwestie van tijd niet heb kunnen doen. Een voorbeeld hiervan is het runnen van de E2E en integration testen in de pipeline. Dit is niet iets wat mijn team nu doet, en dit zelf opzetten had ik helaas geen tijd meer voor.
+
+**Referentie:**
+- [Testplan.docx](./Realisation/Tests/Testplan.docx)
+
+### Testbewijsmateriaal
+
+Alle functionele eisen uit het SRS zijn voorzien van testcases en gekoppeld aan bewijs in de vorm van:
+- Unit tests (bijv. `TravelServiceTest.java`)
+- Component tests (bijv. `dates-dashboard.component.spec.ts`)
+- End-to-end tests (bijv. `dates-dashboard-reallocation-flow.cy.ts`)
+- Monitoring en foutafhandeling (bijv. Grafana-screenshot, WFIDB-handling)
+- Prestatie- en loadtests (bijv. dashboardlaadtijd, schaalbaarheid)
+- CI/CD-integratie (pipelineblokkering bij falende tests)
+
+**Referentie:**
+- [Test evidence.docx](./Realisation/Tests/Test%20evidence.docx)
+
 
 ## 5.6 Reflectie
 
 Tijdens het bouwen liep ik tegen een aantal uitdagingen aan:
-- De originele `DatesDashboardComponent` was meer dan 1000 regels en niet onderhoudbaar. Refactoring was noodzakelijk.
-- De WFIDB-integratie vroeg om nieuwe authenticatielogica die niet eerder gebruikt werd.
-- Het ontbreken van testdekking op bestaande code zorgde voor risico’s bij uitbreidingen.
-
-Door grondige tests toe te voegen, modulaire logica te schrijven en documentatie te maken, is het systeem nu onderhoudbaar en veilig voor productie.
+- De originele `DatesDashboardComponent` was meer dan 1000 regels en niet onderhoudbaar. Refactoring was noodzakelijk, helaas was dit niet een optie vanuit het team.
+- De FeatureFlag implementatie werkte niet na de implementatie, ik heb hier veel te veel tijd ingestoken.
+- Bij het integreren van de WFI Microservice duurde het enorm lang voordat ik ermee aan de slag kon, ik werd van het kastje naar de muur gestuurd voor 1.5 week. Ik had eerder zelf in moeten grijpen.
 
