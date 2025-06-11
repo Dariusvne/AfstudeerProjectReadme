@@ -342,7 +342,9 @@ Alle functionele eisen uit het SRS zijn voorzien van testcases en gekoppeld aan 
 
 **Referentie:**
 - [Test evidence.docx](./Realisation/Tests/Test%20evidence.docx)
-
+- [/Realisation/Backend/Tests](./Realisation/Backend/Tests/)
+- [/Realisation/Frontend/E2E tests](./Realisation/Frontend/E2E%20tests/)
+- [/Realisation/Frontend/dates-dashboard.component.spec.ts](./Realisation/Frontend/dates-dashboard.component.spec.ts)
 
 ## 5.6 Reflectie
 
